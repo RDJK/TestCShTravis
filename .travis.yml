@@ -1,5 +1,14 @@
+sudo: required
 language: csharp
+
+services:
+  - docker
+
 mono: none
 dotnet: 2.1.502
 script:
  - dotnet restore
+
+after_success:
+  - docker build -t test-image .
+  - docker run test-image
